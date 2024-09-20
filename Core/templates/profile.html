@@ -1,0 +1,91 @@
+<!-- profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Usuário</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estiliza o body para centralizar o conteúdo */
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background-color: {{ request.user.userprofile.background_color }};
+        }
+
+        /* Centraliza todo o conteúdo */
+        .content {
+            text-align: center;
+        }
+
+        /* Estiliza o contador */
+        .counter {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-top: 20px;
+            color: {{ user_profile.font_color }};
+        }
+
+        /* Estiliza o título */
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center mt-5">
+        <h1>Personalize seu Contador</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button onclick="copyLink()"  class="btn btn-success">Compartilhar Contador</button>
+        </form>
+        <div id="counter" class="counter" style="color: {{ request.user.userprofile.font_color }};">
+           
+        </div>
+    </div>
+
+    <script>
+        // Data do evento
+        const eventDate = new Date("2024-12-31T00:00:00").getTime();
+
+        // Atualiza o contador a cada segundo
+        const countdown = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            // Calcula os dias, horas, minutos e segundos
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Exibe o resultado no elemento com id="counter"
+            document.getElementById("counter").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+            // Se a contagem terminar, exibe uma mensagem
+            if (distance < 0) {
+                clearInterval(countdown);
+                document.getElementById("counter").innerHTML = "O evento começou!";
+            }
+        }, 1000);
+    </script>
+
+    <script>
+        function copyLink() {
+            const userId = {{ request.user.id }};
+            const link = `${window.location.origin}/shared/${userId}/`;
+            navigator.clipboard.writeText(link).then(() => {
+                alert('Link copiado para a área de transferência!');
+            });
+        }
+    </script>
+</body>
+</html>
