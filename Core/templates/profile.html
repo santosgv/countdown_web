@@ -1,60 +1,27 @@
-<!-- profile.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil do Usuário</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Estiliza o body para centralizar o conteúdo */
-        body, html {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            background-color: {{ request.user.userprofile.background_color }};
-        }
+{% extends 'base.html' %}
+{% block 'body' %}
 
-        /* Centraliza todo o conteúdo */
-        .content {
-            text-align: center;
-        }
-
-        /* Estiliza o contador */
-        .counter {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-top: 20px;
-            color: {{ user_profile.font_color }};
-        }
-
-        /* Estiliza o título */
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container text-center mt-5">
-        <h1>Personalize seu Contador</h1>
+    <div class="justify-content-center align-items-center" style="display: grid; margin-top: 15px;">
+        <div class="card text-center" style="width: 20rem; height: 23rem;">
+        <h1>Personalize!</h1>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Salvar</button>
-            <button onclick="copyLink()"  class="btn btn-success">Compartilhar Contador</button>
+            <button onclick="copyLink()"  class="btn btn-success">Compartilhar</button>
         </form>
-        <div id="counter" class="counter" style="color: {{ request.user.userprofile.font_color }};">
-           
+    </div>
+        <div class="container-fluid text-center mt-5 content">
+            <h1><span style="color: {{ request.user.userprofile.font_color }};">{{request.user.userprofile.titulo}}</h1>
+            <div id="counter" class="counter" style="color: {{ request.user.userprofile.font_color }};">
+            </div>
         </div>
+     
     </div>
 
     <script>
         // Data do evento
-        const eventDate = new Date("2024-12-31T00:00:00").getTime();
+        const eventDate = new Date("{{request.user.userprofile.data|date:'Y-m-d\\TH:i:s'}}").getTime();
 
         // Atualiza o contador a cada segundo
         const countdown = setInterval(() => {
@@ -87,5 +54,32 @@
             });
         }
     </script>
-</body>
-</html>
+
+<style>
+    /* Estiliza o body para centralizar o conteúdo */
+    body, html {
+
+        font-family: Arial, sans-serif;
+        background-color: {{ request.user.userprofile.background_color }};
+    }
+
+    /* Centraliza todo o conteúdo */
+    .content {
+        text-align: center;
+    }
+
+    /* Estiliza o contador */
+    .counter {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-top: 20px;
+        color: {{ user_profile.font_color }};
+    }
+
+    /* Estiliza o título */
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
