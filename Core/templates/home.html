@@ -1,5 +1,269 @@
 {% extends 'base.html' %}
+{% block 'head' %}
+<style>
+    .hero {
+      background-color: #007bff;
+      color: white;
+      padding: 100px 0;
+      text-align: center;
+  }
+
+  .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+  }
+
+  .hero p {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+  }
+
+  /* Cards */
+  .cards-section {
+      padding: 50px 0;
+      text-align: center;
+  }
+
+  .card {
+      margin: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border: none;
+      border-radius: 10px;
+  }
+
+  /* Botão de compra */
+  .btn-buy {
+      background-color: #28a745;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 30px;
+      text-decoration: none;
+  }
+
+  .btn-buy:hover {
+      background-color: #218838;
+  }
+
+          /* Estilo da sessão de entrada e mockup */
+          .form-container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 30px;
+  }
+
+  /* Mockup do smartphone */
+  .mockup {
+      width: 300px;
+      height: 600px;
+      background-color: #333;
+      border-radius: 30px;
+      padding: 20px;
+      position: relative;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .mockup::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 5px;
+      background-color: #888;
+      border-radius: 10px;
+  }
+
+  .mockup .screen {
+    padding-top: 10px;
+      background-color: white;
+      width: 100%;
+      height: 90%;
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+  }
+
+  #mockupCountdown {
+    font-size: 1.5rem;
+    margin-top: 10px;
+}
+
+  .mockup img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 20px;
+  }
+
+  .mockup h4 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #333;
+  }
+
+  .mockup p {
+      font-size: 1rem;
+      color: #555;
+  }
+
+  .mockup .date {
+      font-size: 0.9rem;
+      color: #888;
+  }
+
+  /* Estilo geral dos inputs */
+  .input-group {
+      margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+      .form-container {
+          flex-direction: column;
+          align-items: center;
+      }
+  }
+</style>
+          {% endblock %}
 {% block 'body' %}
 
+<div class="container form-container">
+    <!-- Formulário -->
+    <div class="form-section">
+        <h3>Insira suas informações</h3>
+        <form>
+            <div class="input-group">
+                <div class="input-group">
+                <label for="id_font_color">Font color: </label>
+                <input type="color" name="font_color"  maxlength="7" oninput="updateMockup()" value="#F8F8FF" required="" id="id_font_color">
+                <label for="id_background_color">Background color:</label>
+                <input type="color" name="background_color"  maxlength="7" oninput="updateMockup()" value="#836FFF" id="id_background_color">
+                </div>
+                <label for="inputText">Texto:</label>
+                <input type="text" id="inputText" class="form-control" oninput="updateMockup()" placeholder="Digite seu texto">
+            </div>
+            <div class="input-group">
+                <label for="inputDate">Data:</label>
+                <input type="datetime-local" id="inputDate" class="form-control" oninput="updateMockup()">
+            </div>
+            <div class="input-group">
+                <label for="inputImage">Foto:</label>
+                <input type="file" id="inputImage" class="form-control" accept="image/*" onchange="loadImage(event)">
+            </div>
+        </form>
+    </div>
 
+    <!-- Mockup de Smartphone -->
+    <div class="mockup">
+        <div class="screen" id="screen">
+            <img id="mockupImage" src="https://via.placeholder.com/150" alt="Imagem do evento">
+            <h4 id="mockupText">Texto aparecerá aqui</h4>
+            <div id="mockupCountdown">Contagem regressiva aparecerá aqui</div>
+        </div>
+    </div>
+</div>
+
+  <div class="hero">
+    <h1>Crie seu Contador de Eventos Personalizado</h1>
+    <p>Personalize, compartilhe e acompanhe seus eventos de maneira fácil e intuitiva. Perfeito para eventos especiais!</p>
+    <a href="#cards" class="btn btn-light btn-lg">Veja como funciona</a>
+</div>
+
+<!-- Seção de Cards explicativos -->
+<div id="cards" class="container-fluid cards-section">
+    <h2>Como funciona</h2>
+    <div class="row justify-content-center">
+        <!-- Card 1 -->
+        <div class="col-md-3">
+            <div class="card">
+                <h5 class="card-title">Passo 1: Crie seu Usuario</h5>
+                <p class="card-text">Apos criar o seu usuario e Pagar, Escolha uma data e o título do seu evento. Seu contador começará a contagem automaticamente.</p>
+            </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="col-md-3">
+            <div class="card">
+                <h5 class="card-title">Passo 2: Personalize seu contador</h5>
+                <p class="card-text">Escolha as cores, fonte e a Foto que deseja para o contador. Torne seu evento único e visualmente agradável.</p>
+            </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="col-md-3">
+            <div class="card">
+                <h5 class="card-title">Passo 3: Compartilhe com seus amigos</h5>
+                <p class="card-text">Após configurar seu contador, compartilhe o link com amigos e familiares para que todos possam acompanhar o evento.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Seção do botão de compra -->
+<div class="text-center my-5">
+    <a href="/compra" class="btn-buy">Compre Agora</a>
+</div>
+
+<script>
+function updateMockup() {
+    const text = document.getElementById("inputText").value;
+    const date = document.getElementById("inputDate").value;
+    const fontColor = document.getElementById("id_font_color").value;
+    const bgColor = document.getElementById("id_background_color").value;
+
+    // Atualiza o texto e a data
+    document.getElementById("mockupText").innerText = text ? text : "Texto aparecerá aqui";
+
+    // Aplica a cor da fonte e do fundo ao mockup
+    document.getElementById("mockupText").style.color = fontColor;
+    document.getElementById("mockupCountdown").style.color = fontColor;
+    document.getElementById("screen").style.backgroundColor = bgColor;
+
+    if (date) {
+        startCountdown(new Date(date).getTime());
+    }
+}
+
+function startCountdown(eventDate) {
+    const countdownElement = document.getElementById("mockupCountdown");
+
+    // Atualiza o contador a cada segundo
+    const countdown = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = eventDate - now;
+
+        // Calcula dias, horas, minutos e segundos
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Exibe o resultado no mockup
+        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+        // Se a contagem terminar
+        if (distance < 0) {
+            clearInterval(countdown);
+            countdownElement.innerHTML = "O evento começou!";
+        }
+    }, 1000);
+}
+
+// Função para carregar a imagem no mockup
+function loadImage(event) {
+    const image = document.getElementById("mockupImage");
+    image.src = URL.createObjectURL(event.target.files[0]);
+    image.style.display = "block"; // Exibe a imagem no mockup
+    image.onload = function() {
+        URL.revokeObjectURL(image.src); // Libera a memória depois de carregar a imagem
+    };
+}
+  </script>
 {% endblock %}
