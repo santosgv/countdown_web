@@ -40,6 +40,11 @@
 </head>
 <body>
     <div class="container-fluid text-center mt-5 content">
+        {% if request.user.userprofile.foto %}
+        <div>
+            <img src="{{request.user.userprofile.foto.url}}" alt="" sizes="" srcset="">
+        </div>
+        {% endif%}
         <h1><span style="color: {{ user.font_color }};">{{user.titulo}}</span></h1>
         <div id="counter" class="counter" style="color: {{ user.userprofile.font_color }};">
         </div>
