@@ -13,6 +13,6 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('perfil/',views.profile,name='perfil'),
     path('shared/<int:user_id>/',views.shared , name='shared'),
-    path('create_checkout_session/<int:id>', views.create_checkout_session, name="create_checkout_session"),
+   # path('create_checkout_session/<int:id>', views.create_checkout_session, name="create_checkout_session"),
     path('stripe_webhook', views.stripe_webhook, name="stripe_webhook"),
 ]

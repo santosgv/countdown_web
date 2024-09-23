@@ -1,9 +1,45 @@
 
 {% extends 'base.html' %}
-{% block 'body' %}
-
+{% block 'head' %}
 <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
-<stripe-pricing-table pricing-table-id="prctbl_1Q20Y7BGWYkSS6PQci0rmaFC"
-publishable-key="pk_test_51Q1zXwBGWYkSS6PQycWeN7vj1CWycuRYTkpDYIOZ5PnpQE9FeZICrxTEGdJDEqCsqwMJtTJM8jh2zsLhuumqvGhG00sUKbP8uB">
-</stripe-pricing-table>
+{% endblock %}
+{% block 'body' %}
+<div class="pricing-container">
+    <h1>Nossos Planos</h1>
+    <stripe-pricing-table pricing-table-id="prctbl_1Q20Y7BGWYkSS6PQci0rmaFC"
+        publishable-key="{{STRIPE_PUBLIC_KEY}}">
+    </stripe-pricing-table>
+</div>
+<style>
+
+
+        h1 {
+            text-align: center;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
+
+        /* Ajustes no botão de pagamento */
+        stripe-pricing-table {
+            margin-top: 20px;
+        }
+
+        /* Personalização adicional do botão de pagamento */
+        button {
+            background-color: #6772E5; /* Cor de fundo do botão */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5469D4; /* Efeito hover no botão */
+        }
+
+  
+</style>
 {% endblock %}

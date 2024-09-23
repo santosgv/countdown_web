@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block 'head' %}
 <style>
     .hero {
-      background-color: #007bff;
-      color: white;
+      background-color: white;
+      color: rgb(16, 16, 16);
       padding: 100px 0;
       text-align: center;
+      font-family: fantasy;
   }
 
   .hero h1 {
@@ -27,23 +29,10 @@
   .card {
       margin: 20px;
       padding: 20px;
+      height: 15rem;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       border: none;
       border-radius: 10px;
-  }
-
-  /* Botão de compra */
-  .btn-buy {
-      background-color: #28a745;
-      color: white;
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      border-radius: 30px;
-      text-decoration: none;
-  }
-
-  .btn-buy:hover {
-      background-color: #218838;
   }
 
           /* Estilo da sessão de entrada e mockup */
@@ -52,6 +41,7 @@
       justify-content: space-around;
       align-items: center;
       padding: 30px;
+      font-family: fantasy;
   }
 
   /* Mockup do smartphone */
@@ -175,7 +165,7 @@
   <div class="hero">
     <h1>Crie seu Contador de Eventos Personalizado</h1>
     <p>Personalize, compartilhe e acompanhe seus eventos de maneira fácil e intuitiva. Perfeito para eventos especiais!</p>
-    <a href="#cards" class="btn btn-light btn-lg">Veja como funciona</a>
+    <a href="#cards"><img width="100" height="100" src="{% static 'down_16046465.gif' %}" alt="chevron-down"/></a>
 </div>
 
 <!-- Seção de Cards explicativos -->
@@ -206,9 +196,11 @@
     </div>
 </div>
 
+
+
 <!-- Seção do botão de compra -->
 <div class="text-center my-5">
-    <a href="{% url 'Core:checkout' %}" class="btn-buy">Compre Agora</a>
+    <a href="{% url 'Core:checkout' %}" class="btn btn-success">Compre Agora</a>
 </div>
 
 <script>

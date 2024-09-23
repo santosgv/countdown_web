@@ -12,7 +12,7 @@ from django.contrib.auth import login,authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import CustomUserCreationForm
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 from django.core.mail import send_mail
 
 
@@ -67,7 +67,6 @@ def shared(request,user_id):
 
 def home(request):
     return render(request,'home.html')
-
 
 def checkout(request):
     return render(request,'checkout.html',{'STRIPE_PUBLIC_KEY': settings.STRIPE_PUPLIC_KEY})
