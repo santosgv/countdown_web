@@ -9,8 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from decouple import config
 import requests
 from django.contrib.auth import login,authenticate
-from django.contrib.auth.forms import AuthenticationForm
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm,CustomAuthenticationForm
 import json
 from django.http import JsonResponse,HttpResponse
 from django.core.mail import send_mail
@@ -32,16 +31,12 @@ def register(request):
 
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('/perfil')  
+            login(request, form.get_user())
+            return redirect('/perfil')
     else:
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
 def logout_view(request):
