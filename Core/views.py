@@ -124,11 +124,11 @@ def stripe_webhook(request):
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         
-        mensagem =f'''
-        Pagamento realizado
-
-        '''
-        return send_mail('Pagamento realizado com sucesso',mensagem,'santosgomesv@gmail.com',recipient_list=[session['metadata']['email'],])
-        
+        amount_total = session['amount_total'] / 100
+        customer_email = session['customer_details']['email']
+        customer_name = session['customer_details']['name']
+        print(f"Pagamento confirmado! Nome: {customer_name}, Email: {customer_email}, Valor: R${amount_total}")
+        #return send_mail('Pagamento realizado com sucesso',mensagem,'santosgomesv@gmail.com',recipient_list=[session['metadata']['email'],])
+        return JsonResponse({'status': 'success'})
 
     return HttpResponse(status=200)
