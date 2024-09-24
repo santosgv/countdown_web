@@ -25,11 +25,15 @@
                 {{ form.password }}
             </div>
             <button type="submit" class="btn btn-primary">Entrar</button>
+            <a type="button" href="{% url 'password_reset'%}">Esqueceu sua senha ?</a>
         </form>
     </div>
 </div>
 <style>
 
+    form{
+        margin-bottom: 10px;
+    }
     .card{
         margin-bottom: 25vh;
     }

@@ -65,3 +65,11 @@ class CustomAuthenticationForm(AuthenticationForm):
         if user is None:
             raise forms.ValidationError("Usuário ou senha incorretos.")
         return cleaned_data
+    
+    def confirm_login_allowed(self, user):
+        if not user.userprofile.is_access_valid:
+            raise forms.ValidationError(
+                "Seu acesso expirou. Entre em contato para renovação.",
+                code='invalid_login',
+            )
+        return super().confirm_login_allowed(user)

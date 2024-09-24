@@ -7,21 +7,24 @@ import stripe
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from decouple import config
-import requests
-from django.contrib.auth import login,authenticate
+from django.contrib.auth import login
 from .forms import CustomUserCreationForm,CustomAuthenticationForm
-import json
+from .utils import email_html
 from django.http import JsonResponse,HttpResponse
-from django.core.mail import send_mail
+import os
 
 
 stripe.api_key= settings.STRIPE_SECRET_KEY
+
 
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            path_template = os.path.join(settings.BASE_DIR, 'Core/templates/emails/cadastro_confirmado.html')
+            base_url = request.build_absolute_uri('/')
+            #email_html(path_template, 'Cadastro confirmado', [user.email,], username=user.username, base_url=base_url)
             login(request, user)  
             return redirect('/perfil') 
     else:
@@ -124,6 +127,7 @@ def stripe_webhook(request):
         customer_name = session['customer_details']['name']
         print(f"Pagamento confirmado! Nome: {customer_name}, Email: {customer_email}, Valor: R${amount_total}")
         #return send_mail('Pagamento realizado com sucesso',mensagem,'santosgomesv@gmail.com',recipient_list=[session['metadata']['email'],])
+        return email_html(path_template, 'Cadastro confirmado', [email,], username=username, base_url=base_url ,link_ativacao=link_ativacao)
         return JsonResponse({'status': 'success'})
 
     return HttpResponse(status=200)
