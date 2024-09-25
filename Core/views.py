@@ -24,7 +24,7 @@ def register(request):
             user = form.save()
             path_template = os.path.join(settings.BASE_DIR, 'Core/templates/emails/cadastro_confirmado.html')
             base_url = request.build_absolute_uri('/')
-            #email_html(path_template, 'Cadastro confirmado', [user.email,], username=user.username, base_url=base_url)
+            email_html(path_template, 'Cadastro confirmado', [user.email,], username=user.username, base_url=base_url)
             login(request, user)  
             return redirect('/perfil') 
     else:

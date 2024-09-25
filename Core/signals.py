@@ -30,5 +30,6 @@ def save_user_profile(sender, instance, **kwargs):
     '''
     from_email = config('EMAIL_HOST_USER')
     recipient_list = ['santosgomesv@gmail.com',]
+    print(message)
     #email_html(path_template,subject,{instance.userprofile.user.email})
     return 'Super Usuario Criado'
