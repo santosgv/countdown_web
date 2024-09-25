@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate
+from django.core.exceptions import ValidationError
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -15,13 +16,6 @@ class UserProfileForm(forms.ModelForm):
             'background_color': forms.TextInput(attrs={'type': 'color'}),
         }
 
-    def clean_foto(self):
-        foto = self.cleaned_data.get('foto')
-        if foto:
-            file_type = foto.content_type.split('/')[1]
-            if file_type not in ['jpeg', 'jpg', 'png']:
-                raise forms.ValidationError("Apenas arquivos JPEG e PNG são permitidos.")
-        return foto
 
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True, help_text="Obrigatório. Informe um e-mail válido.")

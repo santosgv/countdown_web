@@ -8,4 +8,4 @@ class CoreConfig(AppConfig):
     def ready(self):
         from django.db.models.signals import pre_save
         from .models import UserProfile
-        from .signals import create_user_profile,save_user_profile
+        from .signals import create_user_profile
