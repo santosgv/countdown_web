@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Core',
+    'django_multiple_chunk_upload',
 ]
 
 MIDDLEWARE = [
@@ -103,6 +104,8 @@ USE_I18N = True
 USE_TZ = True
 
 DATE_FORMAT = "d-m-Y"
+
+MAX_BYTES=10000000000000
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

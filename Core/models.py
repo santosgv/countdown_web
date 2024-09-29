@@ -2,10 +2,16 @@ from django.db import models
 from django.contrib.auth.models import User
 import os
 from django.utils import timezone
+from django_multiple_chunk_upload.models import ChunkUpload
+
+
+class Arquivos(ChunkUpload):
+    nome = models.CharField(max_length=50, null=True, blank=True)
+    file = models.FileField(upload_to='foto_img',blank=True, null=True)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    foto =  models.ImageField(upload_to='foto_img',blank=True, null=True)
+    foto =  models.OneToOneField(Arquivos,on_delete=models.CASCADE,null=True, blank=True)
     titulo = models.CharField(max_length=250,default="Meu Compromisso")
     data = models.DateTimeField()
     font_color = models.CharField(max_length=7, default='#000000')  
@@ -34,3 +40,4 @@ class UserProfile(models.Model):
         if self.valid_until:
             return timezone.now() <= self.valid_until
         return False
+

@@ -44,9 +44,9 @@
 </head>
 <body>
     <div class="container-fluid text-center content">
-        {% if request.user.userprofile.foto %}
+        {% if request.user.userprofile.foto.file.url %}
         <div>
-            <img class="imagem" src="{{request.user.userprofile.foto.url}}" alt="{{request.user.userprofile.foto.url}}" sizes="" srcset="">
+            <img class="imagem" src="{{request.user.userprofile.foto.file.url}}" alt="{{request.user.userprofile.foto.url}}" sizes="" srcset="">
         </div>
         {% endif%}
         <h1><span style="color: {{ user.font_color }};">{{user.titulo}}</span></h1>

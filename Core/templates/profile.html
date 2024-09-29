@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
+
 {% block 'body' %}
 
     <div class="justify-content-center align-items-center" style="display: grid; margin-top: 15px;">
         <div class="card text-center" style="width: 50rem; height: 25rem;">
         <h1>Personalize!</h1>
         <form method="post" enctype="multipart/form-data">
+            <div id='message-upload' class="alert-primary"></div>
+            <a href="{% url 'add_file' %}">Adicionar Foto</a>
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -14,7 +17,7 @@
         <div class="container-fluid text-center mt-5 content">
             {% if request.user.userprofile.foto %}
             <div>
-                <img src="{{request.user.userprofile.foto.url}}" alt="" sizes="" srcset="">
+                <img src="{{request.user.userprofile.foto.file.url}}" alt="" sizes="" srcset="">
             </div>
             {% endif%}
             <h1><span style="color: {{ request.user.userprofile.font_color }};">{{request.user.userprofile.titulo}}</h1>

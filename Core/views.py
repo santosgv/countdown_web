@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm
-from . models import UserProfile
+from . models import UserProfile,Arquivos
 from django.contrib import auth
 import stripe
 from django.conf import settings
@@ -10,10 +10,11 @@ from decouple import config
 from django.contrib.auth import login
 from .forms import CustomUserCreationForm,CustomAuthenticationForm
 from .utils import email_html
+from django.utils.decorators import method_decorator
 from django.http import JsonResponse,HttpResponse
 import os
-
-
+from django.views import View
+from django_multiple_chunk_upload.mixins import UploadMixin,CompleteUploadMixin
 stripe.api_key= settings.STRIPE_SECRET_KEY
 
 
@@ -31,7 +32,6 @@ def register(request):
         form = CustomUserCreationForm()
     return render(request, 'register.html', {'form': form})
 
-
 def login_view(request):
     if request.method == 'POST':
         form = CustomAuthenticationForm(request, data=request.POST)
@@ -46,8 +46,11 @@ def logout_view(request):
     auth.logout(request)
     return redirect('/') 
 
+def add_file(request):
+    return render(request,'nova.html')
 @login_required
 def profile(request):
+    #return render(request,'nova.html')
     if request.method == 'POST':
         form = UserProfileForm(request.POST,request.FILES, instance=request.user.userprofile)
         if form.is_valid():
@@ -61,6 +64,7 @@ def profile(request):
 
 def shared(request,user_id):
     usuario = get_object_or_404(UserProfile, user=user_id)
+    print(usuario.foto.file.url)
     return render(request, 'shared.html',{'user':usuario})
 
 def home(request):
@@ -131,3 +135,23 @@ def stripe_webhook(request):
         return JsonResponse({'status': 'success'})
 
     return HttpResponse(status=200)
+
+@method_decorator([csrf_exempt],name="dispatch")
+class UploadView(View,UploadMixin):
+    MODEL_CLASS = Arquivos
+    FILE_FIELDS = ['file']
+    UPLOAD_TO='foto_img'
+
+    def post(self, request):
+        return self.handle_chunk_upload(
+            request, self.FILE_FIELDS, self.MODEL_CLASS, self.UPLOAD_TO
+        )
+
+class CompleteUpload(View,CompleteUploadMixin):
+    MODEL_CLASS = Arquivos
+    NON_FILE_FIELDS =['nome']
+
+    def post(self,request):
+        return self.handle_complete_upload(
+            request, self.NON_FILE_FIELDS, self.MODEL_CLASS
+        )
