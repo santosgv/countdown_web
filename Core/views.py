@@ -50,7 +50,6 @@ def add_file(request):
     return render(request,'nova.html')
 @login_required
 def profile(request):
-    #return render(request,'nova.html')
     if request.method == 'POST':
         form = UserProfileForm(request.POST,request.FILES, instance=request.user.userprofile)
         if form.is_valid():
@@ -64,7 +63,6 @@ def profile(request):
 
 def shared(request,user_id):
     usuario = get_object_or_404(UserProfile, user=user_id)
-    print(usuario.foto.file.url)
     return render(request, 'shared.html',{'user':usuario})
 
 def home(request):
@@ -143,15 +141,27 @@ class UploadView(View,UploadMixin):
     UPLOAD_TO='foto_img'
 
     def post(self, request):
+        file = request.FILES.get('file')
+        if file.size > settings.MAX_BYTES:
+            return JsonResponse({"error": "O arquivo deve ter no máximo 150 MB."}, status=400)
+
         return self.handle_chunk_upload(
             request, self.FILE_FIELDS, self.MODEL_CLASS, self.UPLOAD_TO
         )
 
+@method_decorator([csrf_exempt],name="dispatch")
 class CompleteUpload(View,CompleteUploadMixin):
     MODEL_CLASS = Arquivos
     NON_FILE_FIELDS =['nome']
 
     def post(self,request):
+        nome = request.POST.get('nome')
         return self.handle_complete_upload(
             request, self.NON_FILE_FIELDS, self.MODEL_CLASS
         )
+
+        if response.status_code == 200:
+            arquivo = self.MODEL_CLASS.objects.get(id=response.data['id'])  # Obtém o objeto criado
+            arquivo.nome = nome  # Atribui o nome ao arquivo
+            arquivo.save()  # Salva o objeto atualizado
+        return response

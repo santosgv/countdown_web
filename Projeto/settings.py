@@ -105,7 +105,7 @@ USE_TZ = True
 
 DATE_FORMAT = "d-m-Y"
 
-MAX_BYTES=10000000000000
+MAX_BYTES=2097152
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

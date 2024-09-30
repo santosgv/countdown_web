@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
 
 class UserProfileForm(forms.ModelForm):
+    remove_foto = forms.BooleanField(required=False, label="Remover foto atual")
     class Meta:
         model = UserProfile
         fields = ['font_color', 'background_color','titulo','data','foto']
@@ -15,6 +16,18 @@ class UserProfileForm(forms.ModelForm):
             'font_color': forms.TextInput(attrs={'type': 'color'}),
             'background_color': forms.TextInput(attrs={'type': 'color'}),
         }
+
+    def save(self, commit=True):
+        user_profile = super().save(commit=False)
+
+        # Se o checkbox de remover foto estiver marcado, remover o arquivo
+        if self.cleaned_data.get('remove_foto'):
+            user_profile.foto = None  # Remove a relação com o arquivo
+
+        if commit:
+            user_profile.save()
+
+        return user_profile
 
 
 class CustomUserCreationForm(UserCreationForm):

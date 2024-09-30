@@ -44,11 +44,21 @@
 </head>
 <body>
     <div class="container-fluid text-center content">
-        {% if request.user.userprofile.foto.file.url %}
+
+        {% if user.foto %}
         <div>
-            <img class="imagem" src="{{request.user.userprofile.foto.file.url}}" alt="{{request.user.userprofile.foto.url}}" sizes="" srcset="">
+            {% if user.foto.is_img %}
+                <!-- Exibe a imagem -->
+                <img src="{{ user.foto.file.url }}" alt="Imagem do contador">
+            {% elif user.foto.is_video %}
+                <!-- Exibe o vídeo com controles de reprodução -->
+                <video controls width="100%" height="100%">
+                    <source src="{{ user.foto.file.url }}" type="video/mp4">
+                    Seu navegador não suporta a tag de vídeo.
+                </video>
+            {% endif %}
         </div>
-        {% endif%}
+    {% endif %}
         <h1><span style="color: {{ user.font_color }};">{{user.titulo}}</span></h1>
         <div id="counter" class="counter" style="color: {{ user.userprofile.font_color }};">
         </div>
