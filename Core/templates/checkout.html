@@ -1,97 +1,147 @@
-
 {% extends 'base.html' %}
 {% block 'head' %}
 <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
 {% endblock %}
 {% block 'body' %}
 <body>
-      <section id="pricing" class="py-5 bg-light">
+    <section id="pricing" class="py-5 bg-light">
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-              <h1 class="display-4">EXPERIMENTE SEM COMPROMISSO POR 7 DIAS</h1>
-              <div class="container mt-5">
+            <h1 class="display-4">EXPERIMENTE SEM COMPROMISSO POR 7 DIAS</h1>
+            <p class="lead">Aproveite todos os recursos avançados do EventTime com uma garantia de satisfação.</p>
+
+            <div class="container mt-5">
                 <div class="row text-center">
                     <div class="col-md-3 col-sm-6 mb-4">
-                      <img width="48" height="48" src="https://img.icons8.com/material-rounded/48/ffda1c/private-folder.png" alt="private-folder"/>
+                        <img width="48" height="48" src="https://img.icons8.com/material-rounded/48/ffda1c/private-folder.png" alt="private-folder"/>
                         <p>Dados pessoais sigilosos não são compartilhados</p>
                     </div>
                     <div class="col-md-3 col-sm-6 mb-4">
-                      <img width="48" height="48" src="https://img.icons8.com/ios-filled/50/ffda1c/card-security.png" alt="card-security"/>
-                        <p>Dados financeiros guardados não são compartilhados</p>
+                        <img width="48" height="48" src="https://img.icons8.com/ios-filled/50/ffda1c/card-security.png" alt="card-security"/>
+                        <p>Dados financeiros protegidos</p>
                     </div>
                     <div class="col-md-3 col-sm-6 mb-4">
-                      <img width="48" height="48" src="https://img.icons8.com/ios-filled/50/ffda1c/shield.png" alt="shield"/>
-                        <p>100% confiável compre com segurança</p>
+                        <img width="48" height="48" src="https://img.icons8.com/ios-filled/50/ffda1c/shield.png" alt="shield"/>
+                        <p>Compra 100% segura</p>
                     </div>
                     <div class="col-md-3 col-sm-6 mb-4">
-                      <img width="48" height="48" src="https://img.icons8.com/glyph-neue/50/ffda1c/time-machine.png" alt="time-machine"/>
-                        <p>Entrega garantida no prazo e política de devolução</p>
+                        <img width="48" height="48" src="https://img.icons8.com/glyph-neue/50/ffda1c/time-machine.png" alt="time-machine"/>
+                        <p>Garantia de entrega e devolução</p>
                     </div>
                 </div>
             </div>
-            </div>
-          <div class="container">
+        </div>
+
+        <div class="container">
             <div class="card-deck mb-3 text-center">
-              <div class="card mb-4 box-shadow pricing-card">
-                <div class="card-header bg-primary text-white">
-                  <h4 class="my-0 font-weight-normal">Plano Anual</h4>
+                <div class="card mb-4 box-shadow pricing-card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="my-0 font-weight-normal">Plano Anual</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url 'create-checkout-session' 1 %}" method="POST">
+                            {% csrf_token %}
+                            <h1 class="card-title pricing-card-title">R$989,00 <small class="text-muted">/ Anual</small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>Gestão CRM</li>
+                                <li>Controle de Estoque</li>
+                                <li>Controle de Caixa</li>
+                                <li>Acesso Mobile</li>
+                                <li>Relatórios Avançados</li>
+                                <li>Atualizações Automáticas</li>
+                                <li>Gerenciamento de Comissões</li>
+                                <li>Hospedagem em Servidores Dedicados</li>
+                                <li>Treinamento Inicial Personalizado</li>
+                                <li>Suporte Prioritário</li>
+                            </ul>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Fazer Pagamento</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <form
-                    action="{% url 'create-checkout-session' 1 %}"
-                    method="POST"
-                  >
-                  {% csrf_token %}
-                  <h1 class="card-title pricing-card-title">R$989,00 <small class="text-muted">/ Anual</small></h1>
-                  <ul class="list-unstyled mt-3 mb-4">
-                    <li>Gestão CRM</li>
-                    <li>Controle de Estoque</li>
-                    <li>Controle de Caixa</li>
-                    <li>Acesso Mobile</li>
-                    <li>Relatórios Avançados</li>
-                    <li>Atualizações Automáticas</li>
-                    <li>Gerenciamento de Comissões</li>
-                    <li>Hospedagem em Servidores Dedicados</li>
-                    <li>Treinamento Inicial Personalizado</li>
-                    <li>Suporte Prioritário</li>
-                  </ul>
-                  <button type="submit" class="btn btn-primary">Fazer Pagamento</button>
-                </form>
-                </div>
-              </div>
             </div>
-        
-        </section>
-
+        </div>
+    </section>
 </body>
+
 <style>
-        
-        h1 {
-            text-align: center;
-            color: #1a1a1a;
-            margin-bottom: 20px;
+    /* Ajustes gerais */
+    body, html {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    h1 {
+        color: #343a40;
+    }
+
+    .lead {
+        font-size: 1.25rem;
+        color: #6c757d;
+    }
+
+    /* Container de preço */
+    .pricing-header {
+        margin-bottom: 30px;
+    }
+
+    .card {
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .pricing-card {
+        transition: transform 0.3s;
+    }
+
+    .pricing-card:hover {
+        transform: scale(1.05);
+    }
+
+    .card-title {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        font-size: 1.2rem;
+        padding: 15px 30px;
+    }
+
+    /* Personalização do botão */
+    .btn-primary {
+        background-color: #6772e5;
+        border-color: #6772e5;
+    }
+
+    .btn-primary:hover {
+        background-color: #5469d4;
+        border-color: #5469d4;
+    }
+
+    /* Ícones de confiança */
+    img {
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 0.95rem;
+        color: #495057;
+    }
+
+    /* Layout responsivo */
+    @media (max-width: 768px) {
+        .card-title {
+            font-size: 2rem;
         }
 
-        /* Ajustes no botão de pagamento */
-        stripe-pricing-table {
-            margin-top: 20px;
+        .btn {
+            font-size: 1rem;
         }
 
-        /* Personalização adicional do botão de pagamento */
-        button {
-            background-color: #6772E5; /* Cor de fundo do botão */
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        .card-header {
+            font-size: 1.2rem;
         }
-
-        button:hover {
-            background-color: #5469D4; /* Efeito hover no botão */
-        }
-
-  
+    }
 </style>
 {% endblock %}
