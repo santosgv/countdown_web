@@ -4,12 +4,65 @@
 <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
 {% endblock %}
 {% block 'body' %}
-<div class="pricing-container">
-    <h1>Nossos Planos</h1>
-    <stripe-pricing-table pricing-table-id="prctbl_1Q20Y7BGWYkSS6PQci0rmaFC"
-        publishable-key="{{STRIPE_PUBLIC_KEY}}">
-    </stripe-pricing-table>
-</div>
+<body>
+      <section id="pricing" class="py-5 bg-light">
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+              <h1 class="display-4">EXPERIMENTE SEM COMPROMISSO POR 7 DIAS</h1>
+              <div class="container mt-5">
+                <div class="row text-center">
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <img width="48" height="48" src="https://img.icons8.com/material-rounded/48/ffda1c/private-folder.png" alt="private-folder"/>
+                        <p>Dados pessoais sigilosos não são compartilhados</p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <img width="48" height="48" src="https://img.icons8.com/ios-filled/50/ffda1c/card-security.png" alt="card-security"/>
+                        <p>Dados financeiros guardados não são compartilhados</p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <img width="48" height="48" src="https://img.icons8.com/ios-filled/50/ffda1c/shield.png" alt="shield"/>
+                        <p>100% confiável compre com segurança</p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-4">
+                      <img width="48" height="48" src="https://img.icons8.com/glyph-neue/50/ffda1c/time-machine.png" alt="time-machine"/>
+                        <p>Entrega garantida no prazo e política de devolução</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+          <div class="container">
+            <div class="card-deck mb-3 text-center">
+              <div class="card mb-4 box-shadow pricing-card">
+                <div class="card-header bg-primary text-white">
+                  <h4 class="my-0 font-weight-normal">Plano Anual</h4>
+                </div>
+                <div class="card-body">
+                    <form
+                    action="{% url 'create-checkout-session' 1 %}"
+                    method="POST"
+                  >
+                  {% csrf_token %}
+                  <h1 class="card-title pricing-card-title">R$989,00 <small class="text-muted">/ Anual</small></h1>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li>Gestão CRM</li>
+                    <li>Controle de Estoque</li>
+                    <li>Controle de Caixa</li>
+                    <li>Acesso Mobile</li>
+                    <li>Relatórios Avançados</li>
+                    <li>Atualizações Automáticas</li>
+                    <li>Gerenciamento de Comissões</li>
+                    <li>Hospedagem em Servidores Dedicados</li>
+                    <li>Treinamento Inicial Personalizado</li>
+                    <li>Suporte Prioritário</li>
+                  </ul>
+                  <button type="submit" class="btn btn-primary">Fazer Pagamento</button>
+                </form>
+                </div>
+              </div>
+            </div>
+        
+        </section>
+
+</body>
 <style>
         
         h1 {

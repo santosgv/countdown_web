@@ -74,34 +74,34 @@ def checkout(request):
 def erro(request):
     return HttpResponse('Erro')
 
-def create_checkout_session(request, id):
-    YOUR_DOMAIN = "http://127.0.0.1:8000"
-    checkout_session = stripe.checkout.Session.create(
-        line_items=[
-            {
-                'price_data': {
-                'currency': 'BRL',
-                'unit_amount': int(29 * 100),
-                    'product_data': {
-                        'name': 'Contador'
-                    }
+class CreateStripeCheckoutSessionView(View):
+    
+    """
+    Create a checkout session and redirect the user to Stripe's checkout page
+    """
 
-                },
-                'quantity': 1,
-            },
-        ],
-        payment_method_types=[
-            'card',
-            'boleto',
-        ],
-        metadata={
-            'id_produto': 1,
-        },
-        mode='payment',
-        success_url=YOUR_DOMAIN + '/register',
-        cancel_url=YOUR_DOMAIN + '/erro',
-    )
-    return JsonResponse({'id': checkout_session.id})
+    def post(self, request, *args, **kwargs):
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=["card","boleto"],
+            line_items=[
+                {
+                    "price_data": {
+                        "currency": "brl",
+                        "unit_amount": int(29) * 100,
+                        "product_data": {
+                            "name": 'Acesso',
+                            "description": '1 ano de acesso',
+                        },
+                    },
+                    "quantity": 1,
+                }
+            ],
+            metadata={"product_id": 1},
+            mode="payment",
+            success_url='http://127.0.0.1:8000' + '/register',
+            cancel_url='http://127.0.0.1:8000' + '/erro',
+        )
+        return redirect(checkout_session.url)
 
 @csrf_exempt
 def stripe_webhook(request):

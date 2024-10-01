@@ -29,7 +29,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Core',
     'django_multiple_chunk_upload',
+    'health_check',                            
+    'health_check.db',                          
+    'health_check.cache',
+    'health_check.storage',
+    'health_check.contrib.migrations',
 ]
+
+HEALTH_CHECK = {
+    'DISK_USAGE_MAX': 60,  # percent
+    'MEMORY_MIN': 100,    # in MB
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
