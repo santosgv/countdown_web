@@ -82,14 +82,14 @@ class CreateStripeCheckoutSessionView(View):
 
     def post(self, request, *args, **kwargs):
         checkout_session = stripe.checkout.Session.create(
-            payment_method_types=["card","boleto"],
+            payment_method_types=["card"],
             line_items=[
                 {
                     "price_data": {
                         "currency": "brl",
                         "unit_amount": int(29) * 100,
                         "product_data": {
-                            "name": 'Acesso',
+                            "name": 'Contador de Eventos',
                             "description": '1 ano de acesso',
                         },
                     },
