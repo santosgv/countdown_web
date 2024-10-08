@@ -4,11 +4,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" href="#">
+    <link rel="icon" href="https://img.icons8.com/stickers/50/hourglass.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="Eventime - Contador de Segundos para Eventos Especiais" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="#" />
+    <meta property="og:image" content="" />
     <meta property="og:url" content="https://www.eventime.com" />
     <meta property="og:site_name" content="EventTime" />
     <meta property="og:description"
@@ -36,7 +36,7 @@
   <body class="container-fluid">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">EventTime</a>
+      <a class="navbar-brand" href="/">EventTime ⌛</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -45,7 +45,7 @@
 
         </ul>
         {% if user.is_authenticated %}
-        <a class="nav-link" href="{% url 'perfil' %}" style="color: aliceblue;">Evento</a>
+        <a class="nav-link" href="{% url 'perfil' %}" style="color: aliceblue;">Meu Evento</a>
       
   
         <a class="nav-link" href="{% url 'logout' %}">Sair</a>
