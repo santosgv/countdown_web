@@ -72,7 +72,7 @@ def checkout(request):
     return render(request,'checkout.html',{'STRIPE_PUBLIC_KEY': settings.STRIPE_PUPLIC_KEY})
 
 def erro(request):
-    return HttpResponse('Erro')
+    return HttpResponse('<h1>Ocorreu um erro ao processar o pagamento</h1><p>Tente novamente ou mais tarde.</p>')
 
 class CreateStripeCheckoutSessionView(View):
     

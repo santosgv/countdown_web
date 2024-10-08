@@ -15,7 +15,8 @@ def create_user_profile(sender, instance, created, **kwargs):
         UserProfile.objects.create(
             user=instance,
             titulo="Meu Compromisso",  
-            data=datetime.now() + timedelta(days=2), 
+            data=datetime.now() + timedelta(days=2),
+            valid_until= datetime.now() + timedelta(days=360)
         )
 
         print('fui chamado de criar',instance.email,)

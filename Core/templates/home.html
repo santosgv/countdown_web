@@ -9,7 +9,7 @@
     .hero {
       background-color: white;
       color: rgb(16, 16, 16);
-      padding: 100px 0;
+      /* padding: 100px 0; */
       text-align: center;
       font-family: 'Roboto';
   }
@@ -122,6 +122,29 @@
       margin-bottom: 20px;
   }
 
+
+  .highlight-button {
+            margin: 50px;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .btn-custom {
+            font-size: 1.5rem;
+            padding: 1rem 2rem;
+            background-color: #42df47;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            
+        }
+        .btn-custom:hover {
+            background-color: #7bd267;
+            text-decoration: none;
+            color: white;
+        }
+
   @media (max-width: 768px) {
       .form-container {
           flex-direction: column;
@@ -168,6 +191,10 @@
     </div>
 </div>
 
+<div class="highlight-button text-center">
+    <a href="{% url 'checkout' %}" class="btn-custom">Compre Agora</a>
+</div>
+
   <div class="hero">
     <h1>Crie seu Contador de Eventos Personalizado</h1>
     <p>Personalize, compartilhe e acompanhe seus eventos de maneira fácil e intuitiva. Perfeito para eventos especiais!</p>
@@ -208,15 +235,10 @@
             </div>
             </div>
         </div>
+        
     </div>
 </div>
 
-
-
-<!-- Seção do botão de compra -->
-<div class="text-center my-5">
-    <a href="{% url 'checkout' %}" class="btn btn-success">Compre Agora</a>
-</div>
 
 <script>
 function updateMockup() {

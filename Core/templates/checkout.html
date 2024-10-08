@@ -11,50 +11,44 @@
 
             <div class="container mt-5">
                 <div class="row text-center">
-                    <div class="col-md-3 col-sm-6 mb-4">
-                        <img width="48" height="48" src="https://img.icons8.com/material-rounded/48/ffda1c/private-folder.png" alt="private-folder"/>
-                        <p>Dados pessoais sigilosos não são compartilhados</p>
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-4">
-                        <img width="48" height="48" src="https://img.icons8.com/ios-filled/50/ffda1c/card-security.png" alt="card-security"/>
-                        <p>Dados financeiros protegidos</p>
-                    </div>
-                    <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="col-md-6 col-sm-6 mb-6">
                         <img width="48" height="48" src="https://img.icons8.com/ios-filled/50/ffda1c/shield.png" alt="shield"/>
                         <p>Compra 100% segura</p>
                     </div>
-                    <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="col-md-6 col-sm-6 mb-6">
                         <img width="48" height="48" src="https://img.icons8.com/glyph-neue/50/ffda1c/time-machine.png" alt="time-machine"/>
-                        <p>Garantia de entrega e devolução</p>
+                        <p>Garantia de devolução</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="container">
-            <div class="card-deck mb-3 text-center">
-                <div class="card mb-4 box-shadow pricing-card">
-                    <div class="card-header bg-primary text-white">
-                        <h4 class="my-0 font-weight-normal">Plano Anual</h4>
-                    </div>
-                    <div class="card-body">
-                        <form action="{% url 'create-checkout-session' 1 %}" method="POST">
-                            {% csrf_token %}
-                            <h1 class="card-title pricing-card-title">R$989,00 <small class="text-muted">/ Anual</small></h1>
-                            <ul class="list-unstyled mt-3 mb-4">
-                                <li>Gestão CRM</li>
-                                <li>Controle de Estoque</li>
-                                <li>Controle de Caixa</li>
-                                <li>Acesso Mobile</li>
-                                <li>Relatórios Avançados</li>
-                                <li>Atualizações Automáticas</li>
-                                <li>Gerenciamento de Comissões</li>
-                                <li>Hospedagem em Servidores Dedicados</li>
-                                <li>Treinamento Inicial Personalizado</li>
-                                <li>Suporte Prioritário</li>
-                            </ul>
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">Fazer Pagamento</button>
-                        </form>
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card mb-4 box-shadow pricing-card">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="my-0 font-weight-normal">Plano Anual</h4>
+                        </div>
+                        <div class="card-body">
+                            <form action="{% url 'create-checkout-session' 1 %}" method="POST">
+                                {% csrf_token %}
+                                <h1 class="card-title pricing-card-title">R$29,00 <small class="text-muted">/ Anual</small></h1>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>Gestão CRM</li>
+                                    <li>Controle de Estoque</li>
+                                    <li>Controle de Caixa</li>
+                                    <li>Acesso Mobile</li>
+                                    <li>Relatórios Avançados</li>
+                                    <li>Atualizações Automáticas</li>
+                                    <li>Gerenciamento de Comissões</li>
+                                    <li>Hospedagem em Servidores Dedicados</li>
+                                    <li>Treinamento Inicial Personalizado</li>
+                                    <li>Suporte Prioritário</li>
+                                </ul>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">Fazer Pagamento</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
