@@ -6,8 +6,8 @@
 <body>
     <section id="pricing" class="py-5 bg-light">
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-            <h1 class="display-4">EXPERIMENTE SEM COMPROMISSO POR 7 DIAS</h1>
-            <p class="lead">Aproveite todos os recursos avançados do EventTime com uma garantia de satisfação.</p>
+            <h1 class="display-4">Garantia de devolução de 7 dias</h1>
+            <p class="lead">Aproveite todos os recursos EventTime com uma garantia de satisfação.</p>
 
             <div class="container mt-5">
                 <div class="row text-center">
@@ -28,23 +28,21 @@
                 <div class="col-md-6">
                     <div class="card mb-4 box-shadow pricing-card">
                         <div class="card-header bg-primary text-white">
-                            <h4 class="my-0 font-weight-normal">Plano Anual</h4>
+                            <h4 class="my-0 font-weight-normal text-center">Plano Anual</h4>
                         </div>
                         <div class="card-body">
                             <form action="{% url 'create-checkout-session' 1 %}" method="POST">
                                 {% csrf_token %}
-                                <h1 class="card-title pricing-card-title">R$29,00 <small class="text-muted">/ Anual</small></h1>
-                                <ul class="list-unstyled mt-3 mb-4">
-                                    <li>Gestão CRM</li>
-                                    <li>Controle de Estoque</li>
-                                    <li>Controle de Caixa</li>
-                                    <li>Acesso Mobile</li>
-                                    <li>Relatórios Avançados</li>
-                                    <li>Atualizações Automáticas</li>
-                                    <li>Gerenciamento de Comissões</li>
-                                    <li>Hospedagem em Servidores Dedicados</li>
-                                    <li>Treinamento Inicial Personalizado</li>
-                                    <li>Suporte Prioritário</li>
+                                <h1 class="card-title pricing-card-title text-center">R$29,00 <small class="text-muted">/ Anual</small></h1>
+                                <ul class="list-unstyled mt-3 mb-4 text-center">
+                                    <li>Contador de Eventos Especiais</li>
+                                    <li>Personalização de Contadores</li>
+                                    <li>Compartilhamento Fácil</li>
+                                    <li>Acesso Web e Mobile</li>
+                                    <li>Interface Amigável</li>
+                                    <li>Atualizações Regulares</li>
+                                    <li>Armazenamento em Nuvem</li>
+                                    <li>Design Responsivo</li>
                                 </ul>
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Fazer Pagamento</button>
                             </form>
