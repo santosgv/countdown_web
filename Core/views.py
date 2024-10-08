@@ -6,6 +6,8 @@ from django.contrib import auth
 import stripe
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.cache import cache_page
+from django.contrib.sitemaps import Sitemap
 from decouple import config
 from django.contrib.auth import login
 from .forms import CustomUserCreationForm,CustomAuthenticationForm
@@ -71,16 +73,37 @@ def home(request):
 def checkout(request):
     return render(request,'checkout.html',{'STRIPE_PUBLIC_KEY': settings.STRIPE_PUPLIC_KEY})
 
+@cache_page(60 * 100)
+def ads(request):
+    if not settings.DEBUG:
+        path = os.path.join(settings.STATIC_ROOT,'ads.txt')
+        with open(path,'r') as arq:
+            return HttpResponse(arq, content_type='text/plain')
+    else:
+        path = os.path.join(settings.BASE_DIR,'templates/static/ads.txt')
+        with open(path,'r') as arq:
+            return HttpResponse(arq, content_type='text/plain')
+        
+        
+@cache_page(60 * 100)
+def robots(request):
+    if not settings.DEBUG:
+        path = os.path.join(settings.STATIC_ROOT,'robots.txt')
+        with open(path,'r') as arq:
+            return HttpResponse(arq, content_type='text/plain')
+    else:
+        path = os.path.join(settings.BASE_DIR,'templates/static/robots.txt')
+        with open(path,'r') as arq:
+            return HttpResponse(arq, content_type='text/plain')
+
 def erro(request):
-    return HttpResponse('<h1>Ocorreu um erro ao processar o pagamento</h1><p>Tente novamente ou mais tarde.</p>')
+    return HttpResponse('<h1>Ocorreu um erro ao processar o pagamento</h1><p>Tente novamente ou mais tarde.</p> <a href="/">voltar</a>')
 
 class CreateStripeCheckoutSessionView(View):
     
-    """
-    Create a checkout session and redirect the user to Stripe's checkout page
-    """
 
     def post(self, request, *args, **kwargs):
+        base_url = request.build_absolute_uri('/')
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             line_items=[
@@ -98,8 +121,8 @@ class CreateStripeCheckoutSessionView(View):
             ],
             metadata={"product_id": 1},
             mode="payment",
-            success_url='http://127.0.0.1:8000' + '/register',
-            cancel_url='http://127.0.0.1:8000' + '/erro',
+            success_url= base_url + '/register',
+            cancel_url= base_url + '/erro',
         )
         return redirect(checkout_session.url)
 

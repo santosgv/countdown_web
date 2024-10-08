@@ -1,0 +1,18 @@
+User-agent: *
+Disallow: /admin
+Disallow: /README.txt
+User-agent: *
+User-agent: AdsBot-Google
+Allow: /$
+Allow: /
+Allow: /perfil
+Allow: /checkout
+Sitemap: https://eventtime.com.br/sitemap.xml
+# CSS, JS, Images
+Allow: /static/js/scripts.js
+Allow: /static/css/styles.css
+Allow: /static/assets/favicon.ico
+# Paths (no clean URLs)
+Allow: /media/foto_img/*.png
+Allow: /media/foto_img/*.jpg
+Allow: /media/foto_img/*.webp

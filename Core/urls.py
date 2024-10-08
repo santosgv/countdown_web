@@ -1,12 +1,15 @@
 from django.urls import path
 from Core import views
-from .views import login_view, logout_view,CreateStripeCheckoutSessionView
+from django.contrib.sitemaps.views import sitemap
+from .views import login_view, logout_view,CreateStripeCheckoutSessionView,ads,robots
 from django.contrib.auth import views as auth_views
-
 
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('ads.txt',ads),
+    path('robots.txt',robots),
+
     path('checkout/',views.checkout, name='checkout'),
     path('erro/',views.erro, name='erro'),
     path('register/', views.register, name='register'),
