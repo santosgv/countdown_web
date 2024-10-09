@@ -146,14 +146,17 @@ def stripe_webhook(request):
 
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
-        
-        amount_total = session['amount_total'] / 100
+    
         customer_email = session['customer_details']['email']
         customer_name = session['customer_details']['name']
-        print(f"Pagamento confirmado! Nome: {customer_name}, Email: {customer_email}, Valor: R${amount_total}")
         path_template = os.path.join(settings.BASE_DIR, 'Core/templates/emails/email.html')
-        #return send_mail('Pagamento realizado com sucesso',mensagem,'santosgomesv@gmail.com',recipient_list=[session['metadata']['email'],])
-        return email_html(path_template, 'Pagamento realizado com sucesso', [customer_email,'santosgomesv@gmail.com'],customer_name=customer_name)
+        if not User.objects.filter(email=customer_email).exists():
+            user = User.objects.create_user(username=customer_email,first_name=customer_name,email=customer_email, password='Senha123@')
+            user.save()
+            email_html(path_template, 'Usuário Criado com Sucesso', [customer_email, 'santosgomesv@gmail.com'], customer_name=customer_name,usuario=user,password=password)
+        else:
+            email_html(path_template, 'Segue link de acesso', [customer_email, 'santosgomesv@gmail.com'], customer_name=customer_name)
+
         return JsonResponse({'status': 'success'})
 
     return HttpResponse(status=200)

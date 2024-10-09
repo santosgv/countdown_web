@@ -19,7 +19,6 @@ def create_user_profile(sender, instance, created, **kwargs):
             valid_until= datetime.now() + timedelta(days=360)
         )
 
-        print('fui chamado de criar',instance.email,)
 
 # Salva o perfil de usuário quando o usuário é salvo
 #@receiver(post_save, sender=User)
