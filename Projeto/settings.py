@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'health_check.cache',
     'health_check.storage',
     'health_check.contrib.migrations',
+    'django.contrib.sitemaps',
 ]
 
 HEALTH_CHECK = {
@@ -116,6 +117,10 @@ USE_TZ = True
 DATE_FORMAT = "d-m-Y"
 
 MAX_BYTES=2097152
+
+SESSION_COOKIE_AGE=1800   # 30 min
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

@@ -8,11 +8,12 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import cache_page
 from django.contrib.sitemaps import Sitemap
+from django.urls import reverse
 from decouple import config
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from .forms import CustomUserCreationForm,CustomAuthenticationForm
-from .utils import email_html
+from .utils import email_html,generate_random_password
 from django.utils.decorators import method_decorator
 from django.http import JsonResponse,HttpResponse
 import os
@@ -51,6 +52,7 @@ def logout_view(request):
 
 def add_file(request):
     return render(request,'nova.html')
+
 @login_required
 def profile(request):
     if request.method == 'POST':
@@ -62,7 +64,6 @@ def profile(request):
     else:
         form = UserProfileForm(instance=request.user.userprofile)
     return render(request, 'profile.html', {'form': form})
-
 
 def shared(request,user_id):
     usuario = get_object_or_404(UserProfile, user=user_id)
@@ -84,8 +85,7 @@ def ads(request):
         path = os.path.join(settings.BASE_DIR,'templates/static/ads.txt')
         with open(path,'r') as arq:
             return HttpResponse(arq, content_type='text/plain')
-        
-        
+            
 @cache_page(60 * 100)
 def robots(request):
     if not settings.DEBUG:
@@ -96,6 +96,17 @@ def robots(request):
         path = os.path.join(settings.BASE_DIR,'templates/static/robots.txt')
         with open(path,'r') as arq:
             return HttpResponse(arq, content_type='text/plain')
+
+class StaticViewSitemap(Sitemap):
+    priority = 0.5
+    changefreq = 'yearly'
+
+    def items(self):
+        return ["home", "perfil", "shared"]
+
+    def location(self, item):
+        return reverse(item)
+    
 
 def erro(request):
     return HttpResponse('<h1>Ocorreu um erro ao processar o pagamento</h1><p>Tente novamente ou mais tarde.</p> <a href="/">voltar</a>')
@@ -155,12 +166,12 @@ def stripe_webhook(request):
         path_template = os.path.join(settings.BASE_DIR, 'Core/templates/emails/email.html')
 
         if not User.objects.filter(email=customer_email).exists():
-            user = User.objects.create_user(username=customer_email,first_name=customer_name,email=customer_email, password='Senha123@')
+            random_password = generate_random_password(8)
+            user = User.objects.create_user(username=customer_email,first_name=customer_name,email=customer_email, password=random_password)
             user.save()
-            return email_html(path_template, 'Usuário Criado com Sucesso', [customer_email,'santosgomesv@gmail.com'],customer_name=customer_name,usuario=user,password='Senha123@')
+            return email_html(path_template, 'Usuário Criado com Sucesso', [customer_email,'santosgomesv@gmail.com'],customer_name=customer_name,usuario=user,password=random_password)
         else:
             return email_html(path_template, 'Pagamento realizado', [customer_email,'santosgomesv@gmail.com'],customer_name=customer_name)
-        return JsonResponse({'status': 'success'})
 
     return HttpResponse(status=200)
 

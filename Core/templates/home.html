@@ -190,11 +190,14 @@
         </div>
     </div>
 </div>
-
+{% if user.is_authenticated %}
+<div class="highlight-button text-center">
+</div>
+{% else %}
 <div class="highlight-button text-center">
     <a href="{% url 'checkout' %}" class="btn-custom">Compre Agora</a>
 </div>
-
+{% endif %}
   <div class="hero">
     <h1>Crie Seu Contador de Eventos Personalizado</h1>
     <p>Personalize, compartilhe e acompanhe seus eventos de forma simples e intuitiva. Ideal para momentos especiais!</p>
