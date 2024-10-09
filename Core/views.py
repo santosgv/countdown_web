@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.cache import cache_page
 from django.contrib.sitemaps import Sitemap
 from decouple import config
+from django.contrib.auth.models import User
 from django.contrib.auth import login
 from .forms import CustomUserCreationForm,CustomAuthenticationForm
 from .utils import email_html
@@ -121,7 +122,7 @@ class CreateStripeCheckoutSessionView(View):
             ],
             metadata={"product_id": 1},
             mode="payment",
-            success_url= base_url + 'register',
+            success_url= base_url + 'login',
             cancel_url= base_url + 'erro',
         )
         return redirect(checkout_session.url)
@@ -156,7 +157,7 @@ def stripe_webhook(request):
         if not User.objects.filter(email=customer_email).exists():
             user = User.objects.create_user(username=customer_email,first_name=customer_name,email=customer_email, password='Senha123@')
             user.save()
-            return email_html(path_template, 'Usuário Criado com Sucesso', [customer_email,'santosgomesv@gmail.com'],customer_name=customer_name,usuario=user,password=password)
+            return email_html(path_template, 'Usuário Criado com Sucesso', [customer_email,'santosgomesv@gmail.com'],customer_name=customer_name,usuario=user,password='Senha123@')
         else:
             return email_html(path_template, 'Pagamento realizado', [customer_email,'santosgomesv@gmail.com'],customer_name=customer_name)
         return JsonResponse({'status': 'success'})
