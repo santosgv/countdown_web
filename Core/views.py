@@ -121,7 +121,7 @@ class CreateStripeCheckoutSessionView(View):
             ],
             metadata={"product_id": 1},
             mode="payment",
-            success_url= base_url + '/register',
+            success_url= base_url + 'register',
             cancel_url= base_url + 'erro',
         )
         return redirect(checkout_session.url)
