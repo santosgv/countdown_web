@@ -151,8 +151,9 @@ def stripe_webhook(request):
         customer_email = session['customer_details']['email']
         customer_name = session['customer_details']['name']
         print(f"Pagamento confirmado! Nome: {customer_name}, Email: {customer_email}, Valor: R${amount_total}")
+        path_template = os.path.join(settings.BASE_DIR, 'Core/templates/emails/email.html')
         #return send_mail('Pagamento realizado com sucesso',mensagem,'santosgomesv@gmail.com',recipient_list=[session['metadata']['email'],])
-        return email_html(path_template, 'Cadastro confirmado', [email,], username=username, base_url=base_url ,link_ativacao=link_ativacao)
+        return email_html(path_template, 'Pagamento realizado com sucesso', [customer_email,'santosgomesv@gmail.com'],customer_name=customer_name)
         return JsonResponse({'status': 'success'})
 
     return HttpResponse(status=200)
