@@ -97,7 +97,7 @@ def robots(request):
             return HttpResponse(arq, content_type='text/plain')
 
 def erro(request):
-    return HttpResponse('<h1>Ocorreu um erro ao processar o pagamento</h1><p>Tente novamente ou mais tarde.</p> <a href="/">voltar</a>')
+    return HttpResponse('<h1>Ocorreu um erro ao processar o pagamento</h1><p>Tente novamente ou mais tarde.</p> <a href="eventtime.com.br">voltar</a>')
 
 class CreateStripeCheckoutSessionView(View):
     
