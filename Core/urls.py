@@ -1,20 +1,21 @@
 from django.urls import path
 from Core import views
 from django.contrib.sitemaps.views import sitemap
-from .views import login_view, logout_view,CreateStripeCheckoutSessionView,ads,robots,Sitemap
+from .models import UserProfile
+from .views import login_view, logout_view,ads,robots,StaticViewSitemap
 from django.contrib.auth import views as auth_views
 
 
-sitemaps = {
-    'sitemap': Sitemap,
-}
 
+info_dict = {
+    "queryset": UserProfile.objects.all(),
+    "data": "updated_at",
+}
 
 urlpatterns = [
     path('', views.home, name='home'),
     path('ads.txt',ads),
     path('robots.txt',robots),
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('checkout/',views.checkout, name='checkout'),
     path('erro/',views.erro, name='erro'),
     path('register/', views.register, name='register'),
@@ -25,10 +26,10 @@ urlpatterns = [
     path('upload',views.UploadView.as_view(),name='upload'),
     path('complete',views.CompleteUpload.as_view(),name='complete'),
     path('shared/<int:user_id>/',views.shared , name='shared'),
-        path(
-        "create-checkout-session/<int:pk>/",
-        CreateStripeCheckoutSessionView.as_view(),
-        name="create-checkout-session",
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": {"recipes": StaticViewSitemap }},
     ),
     path('stripe_webhook', views.stripe_webhook, name="stripe_webhook"),
 

@@ -34,8 +34,11 @@ INSTALLED_APPS = [
     'health_check.cache',
     'health_check.storage',
     'health_check.contrib.migrations',
+    "django.contrib.sites",
     'django.contrib.sitemaps',
 ]
+
+SITE_ID = 1
 
 HEALTH_CHECK = {
     'DISK_USAGE_MAX': 60,  # percent

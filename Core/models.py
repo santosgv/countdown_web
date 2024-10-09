@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 import os
 from django.utils import timezone
 from django_multiple_chunk_upload.models import ChunkUpload
+from django.urls import reverse
 
 
 class Arquivos(ChunkUpload):
@@ -44,6 +45,9 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+    def get_absolute_url(self):
+        return reverse("shared", args=[str(self.user.id)])
 
     @property
     def is_access_valid(self):

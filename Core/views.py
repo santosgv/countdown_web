@@ -99,13 +99,15 @@ def robots(request):
 
 class StaticViewSitemap(Sitemap):
     priority = 0.5
-    changefreq = 'yearly'
+    changefreq = 'monthly'
 
     def items(self):
-        return ["home", "perfil", "shared"]
+        return UserProfile.objects.all()
 
-    def location(self, item):
-        return reverse(item)
+    def lastmod(self, obj):
+        return obj.data
+    
+
     
 
 def erro(request):
