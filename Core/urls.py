@@ -25,7 +25,7 @@ urlpatterns = [
         CreateStripeCheckoutSessionView.as_view(),
         name="create-checkout-session",
     ),
-    #path('stripe_webhook', views.stripe_webhook, name="stripe_webhook"),
+    path('stripe_webhook', views.stripe_webhook, name="stripe_webhook"),
 
 
     path('password_reset/', auth_views.PasswordResetView.as_view(template_name="emails/password_reset.html"), name="password_reset"),
