@@ -31,6 +31,11 @@ urlpatterns = [
         sitemap,
         {"sitemaps": {"recipes": StaticViewSitemap }},
     ),
+            path(
+        "create-checkout-session/<int:pk>/",
+        CreateStripeCheckoutSessionView.as_view(),
+        name="create-checkout-session",
+    ),
     path('stripe_webhook', views.stripe_webhook, name="stripe_webhook"),
 
 
