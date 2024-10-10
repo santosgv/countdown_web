@@ -2,7 +2,7 @@ from django.urls import path
 from Core import views
 from django.contrib.sitemaps.views import sitemap
 from .models import UserProfile
-from .views import login_view, logout_view,ads,robots,StaticViewSitemap
+from .views import login_view, logout_view,ads,robots,StaticViewSitemap,CreateStripeCheckoutSessionView
 from django.contrib.auth import views as auth_views
 
 
