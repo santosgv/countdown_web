@@ -35,7 +35,7 @@ class Arquivos(ChunkUpload):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    foto =  models.OneToOneField(Arquivos,on_delete=models.CASCADE,null=True, blank=True)
+    foto =  models.OneToOneField(Arquivos,on_delete=models.SET_NULL,null=True, blank=True)
     titulo = models.CharField(max_length=250,default="Meu Compromisso")
     data = models.DateTimeField()
     font_color = models.CharField(max_length=7, default='#000000')  
