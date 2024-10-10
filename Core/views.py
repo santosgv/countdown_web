@@ -124,7 +124,7 @@ class CreateStripeCheckoutSessionView(View):
                 {
                     "price_data": {
                         "currency": "brl",
-                        "unit_amount": int(19) * 100,
+                        "unit_amount": int(1) * 100,
                         "product_data": {
                             "name": 'Contador de Eventos',
                             "description": '1 ano de acesso',
