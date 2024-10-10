@@ -119,12 +119,12 @@ class CreateStripeCheckoutSessionView(View):
     def post(self, request, *args, **kwargs):
         base_url = request.build_absolute_uri('/')
         checkout_session = stripe.checkout.Session.create(
-            payment_method_types=["card"],
+            payment_method_types=["card",'boleto'],
             line_items=[
                 {
                     "price_data": {
                         "currency": "brl",
-                        "unit_amount": int(1) * 100,
+                        "unit_amount": int(19) * 100,
                         "product_data": {
                             "name": 'Contador de Eventos',
                             "description": '1 ano de acesso',
