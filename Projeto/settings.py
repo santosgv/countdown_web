@@ -152,3 +152,27 @@ EMAIL_HOST='smtp.gmail.com'
 STRIPE_PUPLIC_KEY= config('STRIPE_PUPLIC_KEY')
 STRIPE_SECRET_KEY= config('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
+
+
+CORS_ALLOWED_ORIGINS : True
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]

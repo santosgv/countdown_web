@@ -149,7 +149,7 @@ def stripe_webhook(request):
 
     try:
         event = stripe.Webhook.construct_event(
-        payload, sig_header, endpoint_secret
+            payload, sig_header, endpoint_secret
         )
     except ValueError as e:
         # Invalid payload
@@ -161,7 +161,6 @@ def stripe_webhook(request):
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         
-  
         customer_email = session['customer_details']['email']
         customer_name = session['customer_details']['name']
         
@@ -169,11 +168,11 @@ def stripe_webhook(request):
 
         if not User.objects.filter(email=customer_email).exists():
             random_password = generate_random_password(8)
-            user = User.objects.create_user(username=customer_email,first_name=customer_name,email=customer_email, password=random_password)
+            user = User.objects.create_user(username=customer_email, first_name=customer_name, email=customer_email, password=random_password)
             user.save()
-            return email_html(path_template, 'Usuário Criado com Sucesso', [customer_email,'santosgomesv@gmail.com'],customer_name=customer_name,usuario=user,password=random_password)
+            email_html(path_template, 'Usuário Criado com Sucesso', [customer_email, 'santosgomesv@gmail.com'], customer_name=customer_name, usuario=user, password=random_password)
         else:
-            return email_html(path_template, 'Pagamento realizado', [customer_email,'santosgomesv@gmail.com'],customer_name=customer_name)
+            email_html(path_template, 'Pagamento realizado', [customer_email, 'santosgomesv@gmail.com'], customer_name=customer_name)
 
     return HttpResponse(status=200)
 
