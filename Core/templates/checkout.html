@@ -28,20 +28,18 @@
                 <div class="col-md-6">
                     <div class="card mb-4 box-shadow pricing-card">
                         <div class="card-header bg-primary text-white">
-                            <h4 class="my-0 font-weight-normal text-center">Plano Anual</h4>
+                            <h4 class="my-0 font-weight-normal text-center">1 Anos de Acesso</h4>
                         </div>
                         <div class="card-body">
                             <form action="{% url 'create-checkout-session' 1 %}" method="POST">
                                 {% csrf_token %}
-                                <h1 class="card-title pricing-card-title text-center">R$19,00 <small class="text-muted">/ Anual</small></h1>
+                                <h1 class="card-title pricing-card-title text-center">R$19,00 <small class="text-muted"></small></h1>
                                 <ul class="list-unstyled mt-3 mb-4 text-center">
-                                    <li>Contador de Eventos Especiais</li>
-                                    <li>Personalização de Contadores</li>
+                                    <li>Eventos Especiais</li>
+                                    <li>Personalização</li>
                                     <li>Compartilhamento Fácil</li>
                                     <li>Acesso Web e Mobile</li>
-                                    <li>Interface Amigável</li>
                                     <li>Atualizações Regulares</li>
-                                    <li>Design Responsivo</li>
                                 </ul>
                                 <button type="submit" class="btn btn-primary btn-lg btn-block">Fazer Pagamento</button>
                             </form>
