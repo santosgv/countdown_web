@@ -1,26 +1,23 @@
 {% extends 'base.html' %}
 {% block 'body' %}
-<div class="justify-content-center align-items-center" style="display: grid; margin-top: 15px;">
-
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+<div class="d-flex justify-content-center align-items-center" style="margin: 80px;">
 
     <div class="card text-center" style="width: 25rem;">
+        {% if messages %}
+        <ul class="messages text-center" style="list-style-type: none; padding: 0; margin-top: 10px;">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         <h2>Entrar</h2>
         {% if form.errors %}
         <div class="alert alert-danger">
-            
-                {% for field, errors in form.errors.items %}
-                    {% for error in errors %}
-                        {{ error }}
-                    {% endfor %}
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    {{ error }}
                 {% endfor %}
-            
+            {% endfor %}
         </div>
         {% endif %}
         <form method="post">
@@ -34,17 +31,18 @@
                 {{ form.password }}
             </div>
             <button type="submit" class="btn btn-primary">Entrar</button>
-            <a type="button" href="{% url 'password_reset'%}">Esqueceu sua senha ?</a>
+            <a type="button" href="{% url 'password_reset'%}">Esqueceu sua senha?</a>
         </form>
     </div>
 </div>
-<style>
 
-    form{
-        margin-bottom: 10px;
+<style>
+    .card {
+        margin-top: auto;
+        margin-bottom: auto;
     }
-    .card{
-        margin-bottom: 25vh;
+    .form-group {
+        margin-bottom: 15px;
     }
 </style>
 {% endblock %}

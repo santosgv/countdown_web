@@ -4,6 +4,7 @@ from .forms import UserProfileForm
 from . models import UserProfile,Arquivos
 from django.contrib import auth
 from django.contrib import messages
+from django.contrib.messages import constants
 import stripe
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -38,8 +39,11 @@ def register(request):
     return render(request, 'register.html', {'form': form})
 
 def login_view(request):
-    login_email = request.session.pop('login_email', None)
-    login_password = request.session.pop('login_password', None)
+    mensagem = request.GET.get('mensagem', None)
+
+    if mensagem:
+        messages.success(request, mensagem)
+        
     if request.method == 'POST':
         form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -47,9 +51,6 @@ def login_view(request):
             return redirect('/perfil')
     else:
         form = CustomAuthenticationForm()
-
-    if login_email and login_password:
-        messages.success(request, f'Seu login foi criado com sucesso! Verifique seu e-mail ({login_email}) para mais detalhes. Sua senha temporária é {login_password}.')
     return render(request, 'login.html', {'form': form})
 
 def logout_view(request):
@@ -137,7 +138,7 @@ class CreateStripeCheckoutSessionView(View):
             ],
             metadata={"product_id": 1},
             mode="payment",
-            success_url= base_url + 'login',
+            success_url= base_url + 'login?mensagem=Seu+login+foi+criado+com+sucesso!+Verifique+o+e-mail+cadastrado+no+pagamento+para+mais+detalhes.',
             cancel_url= base_url + 'erro',
         )
         return redirect(checkout_session.url)
@@ -172,9 +173,6 @@ def stripe_webhook(request):
             random_password = generate_random_password(8)
             user = User.objects.create_user(username=customer_email, first_name=customer_name, email=customer_email, password=random_password)
             user.save()
-
-            request.session['login_email'] = customer_email
-            request.session['login_password'] = random_password
             
             email_html(path_template, 'Usuário Criado com Sucesso', [customer_email, 'santosgomesv@gmail.com'], customer_name=customer_name, usuario=user, password=random_password)
         else:
