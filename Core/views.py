@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm
 from . models import UserProfile,Arquivos
 from django.contrib import auth
+from django.contrib import messages
 import stripe
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
@@ -37,6 +38,8 @@ def register(request):
     return render(request, 'register.html', {'form': form})
 
 def login_view(request):
+    login_email = request.session.pop('login_email', None)
+    login_password = request.session.pop('login_password', None)
     if request.method == 'POST':
         form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -44,6 +47,9 @@ def login_view(request):
             return redirect('/perfil')
     else:
         form = CustomAuthenticationForm()
+
+    if login_email and login_password:
+        messages.success(request, f'Seu login foi criado com sucesso! Verifique seu e-mail ({login_email}) para mais detalhes. Sua senha temporária é {login_password}.')
     return render(request, 'login.html', {'form': form})
 
 def logout_view(request):
@@ -107,15 +113,11 @@ class StaticViewSitemap(Sitemap):
     def lastmod(self, obj):
         return obj.data
     
-
-    
-
 def erro(request):
     return HttpResponse('<h1>Ocorreu um erro ao processar o pagamento</h1><p>Tente novamente ou mais tarde.</p> <a href="/">voltar</a>')
 
 class CreateStripeCheckoutSessionView(View):
     
-
     def post(self, request, *args, **kwargs):
         base_url = request.build_absolute_uri('/')
         checkout_session = stripe.checkout.Session.create(
@@ -124,7 +126,7 @@ class CreateStripeCheckoutSessionView(View):
                 {
                     "price_data": {
                         "currency": "brl",
-                        "unit_amount": int(5) * 100,
+                        "unit_amount": int(19) * 100,
                         "product_data": {
                             "name": 'Contador de Eventos',
                             "description": '1 ano de acesso',
@@ -170,6 +172,10 @@ def stripe_webhook(request):
             random_password = generate_random_password(8)
             user = User.objects.create_user(username=customer_email, first_name=customer_name, email=customer_email, password=random_password)
             user.save()
+
+            request.session['login_email'] = customer_email
+            request.session['login_password'] = random_password
+            
             email_html(path_template, 'Usuário Criado com Sucesso', [customer_email, 'santosgomesv@gmail.com'], customer_name=customer_name, usuario=user, password=random_password)
         else:
             email_html(path_template, 'Pagamento realizado', [customer_email, 'santosgomesv@gmail.com'], customer_name=customer_name)

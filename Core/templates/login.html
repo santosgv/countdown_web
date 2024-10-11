@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% block 'body' %}
 <div class="justify-content-center align-items-center" style="display: grid; margin-top: 15px;">
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     <div class="card text-center" style="width: 25rem;">
         <h2>Entrar</h2>
         {% if form.errors %}
