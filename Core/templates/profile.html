@@ -104,5 +104,27 @@
         font-size: 2.5rem;
         margin-bottom: 20px;
     }
+    img {
+                max-width: 100%;  /* A imagem nunca ultrapassará a largura da tela */
+                height: auto;     /* Mantém a proporção original da imagem */
+                margin-bottom: 20px; /* Adiciona um espaço entre a imagem e o restante do conteúdo */
+            }
+
+            /* Estiliza o vídeo para ser responsivo também */
+            video {
+                max-width: 100%;
+                height: auto;
+            }
+
+        @media (max-width: 768px) {
+            /* Ajusta o tamanho do texto e do contador para telas menores */
+            .counter {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
 </style>
 {% endblock %}

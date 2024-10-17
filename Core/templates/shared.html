@@ -2,6 +2,14 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
+                  <!-- Google Tag Manager -->
+                  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                    })(window,document,'script','dataLayer','GTM-TBHQBKS4');</script>
+                    <!-- End Google Tag Manager -->
+                  </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="https://img.icons8.com/stickers/50/hourglass.png">
@@ -59,9 +67,36 @@
             height: auto;
             width: auto;
         }
+                    /* Faz a imagem ser responsiva */
+            img {
+                max-width: 100%;  /* A imagem nunca ultrapassará a largura da tela */
+                height: auto;     /* Mantém a proporção original da imagem */
+                margin-bottom: 20px; /* Adiciona um espaço entre a imagem e o restante do conteúdo */
+            }
+
+            /* Estiliza o vídeo para ser responsivo também */
+            video {
+                max-width: 100%;
+                height: auto;
+            }
+
+        @media (max-width: 768px) {
+            /* Ajusta o tamanho do texto e do contador para telas menores */
+            .counter {
+                font-size: 2rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
     </style>
 </head>
 <body>
+      <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TBHQBKS4"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
     <div class="container-fluid text-center content">
 
         {% if user.foto %}
