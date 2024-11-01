@@ -60,7 +60,7 @@ def logout_view(request):
 def add_file(request):
     return render(request,'nova.html')
 
-@login_required
+@login_required(login_url='/login/')  
 def profile(request):
     if request.method == 'POST':
         form = UserProfileForm(request.POST,request.FILES, instance=request.user.userprofile)
@@ -127,7 +127,7 @@ class CreateStripeCheckoutSessionView(View):
                 {
                     "price_data": {
                         "currency": "brl",
-                        "unit_amount": int(19) * 100,
+                        "unit_amount": int(9) * 100,
                         "product_data": {
                             "name": 'Contador de Eventos',
                             "description": '1 ano de acesso',
